@@ -1,6 +1,6 @@
-import { createReadStream } from "node:fs";
+import { createReadStream, existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
-import { extname } from "node:path";
+import { extname, resolve } from "node:path";
 import { createWorker } from "tesseract.js";
 
 export interface ExtractedUnit {
@@ -61,7 +61,12 @@ async function* extractPdfByPage(filePath: string): AsyncGenerator<ExtractedUnit
 }
 
 async function extractImageText(filePath: string): Promise<ExtractedUnit> {
-  const worker = await createWorker("eng");
+  const worker = await createWorker("eng", undefined, {
+    cacheMethod: "readOnly",
+    cachePath: process.env.VERCEL ? "/tmp" : getTesseractLangPath(),
+    gzip: false,
+    langPath: getTesseractLangPath()
+  });
   try {
     const result = await worker.recognize(filePath);
     return {
@@ -71,4 +76,15 @@ async function extractImageText(filePath: string): Promise<ExtractedUnit> {
   } finally {
     await worker.terminate();
   }
+}
+
+function getTesseractLangPath(): string {
+  const candidates = [
+    process.env.TESSERACT_LANG_PATH,
+    resolve(process.cwd(), "apps/api"),
+    resolve(process.cwd(), "."),
+    resolve(process.cwd(), "../..")
+  ].filter((path): path is string => Boolean(path));
+
+  return candidates.find((path) => existsSync(resolve(path, "eng.traineddata"))) ?? resolve(process.cwd(), "apps/api");
 }
