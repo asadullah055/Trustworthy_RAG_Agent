@@ -17,6 +17,6 @@
     "typecheck": "npm run typecheck --workspace @trustworthy-rag/shared && npm run typecheck --workspace @trustworthy-rag/api && npm run typecheck --workspace @trustworthy-rag/web"
   },
   "engines": {
-    "node": ">=22"
+    "node": "22.x"
   }
 }

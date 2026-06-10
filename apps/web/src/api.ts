@@ -1,6 +1,6 @@
 import type { AnalyzeCaseResponse, AskRequest, AskResponse, DocumentRecord, IngestResponse } from "@trustworthy-rag/shared";
 
-const API_URL = import.meta.env.VITE_API_URL ?? (import.meta.env.DEV ? "http://localhost:8080" : "");
+const API_URL = import.meta.env.VITE_API_URL ?? (import.meta.env.DEV ? "http://localhost:8080" : "/api");
 
 async function parseJson<T>(response: Response): Promise<T> {
   const payload = await response.json().catch(() => ({}));
