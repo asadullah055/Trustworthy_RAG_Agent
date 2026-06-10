@@ -1,0 +1,21 @@
+{
+  "name": "trustworthy-rag-system",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Production-oriented RAG system using Node.js, React, Supabase Vector, and Gemini embeddings.",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "postinstall": "npm run build --workspace @trustworthy-rag/shared",
+    "dev": "npm run dev --workspace @trustworthy-rag/api",
+    "dev:api": "npm run dev --workspace @trustworthy-rag/api",
+    "dev:web": "npm run dev --workspace @trustworthy-rag/web",
+    "build": "npm run build --workspace @trustworthy-rag/shared && npm run build --workspace @trustworthy-rag/api && npm run build --workspace @trustworthy-rag/web",
+    "typecheck": "npm run typecheck --workspace @trustworthy-rag/shared && npm run typecheck --workspace @trustworthy-rag/api && npm run typecheck --workspace @trustworthy-rag/web"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
