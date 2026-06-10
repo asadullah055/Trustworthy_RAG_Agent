@@ -12,8 +12,8 @@
     "dev": "npm run dev --workspace @trustworthy-rag/api",
     "dev:api": "npm run dev --workspace @trustworthy-rag/api",
     "dev:web": "npm run dev --workspace @trustworthy-rag/web",
-    "build": "npm run build --workspace @trustworthy-rag/shared && npm run build --workspace @trustworthy-rag/api && npm run build --workspace @trustworthy-rag/web",
-    "vercel-build": "npm run build && node scripts/copy-web-dist.mjs",
+    "build": "npm run build --workspace @trustworthy-rag/shared && npm run build --workspace @trustworthy-rag/api && npm run build --workspace @trustworthy-rag/web && node scripts/copy-web-dist.mjs",
+    "vercel-build": "npm run build",
     "typecheck": "npm run typecheck --workspace @trustworthy-rag/shared && npm run typecheck --workspace @trustworthy-rag/api && npm run typecheck --workspace @trustworthy-rag/web"
   },
   "engines": {
